@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "e1f2a3b4c5d6e7f8a9b0",
+  "position": {
+    "x": 960,
+    "y": 590,
+    "z": 9000,
+    "height": 136,
+    "width": 300,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Pedidos Atrasados %"
+                }
+              },
+              "queryRef": "_Medidas.Pedidos Atrasados %",
+              "nativeQueryRef": "Pedidos Atrasados %",
+              "format": "0.00%"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Pedidos Atrasados %"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

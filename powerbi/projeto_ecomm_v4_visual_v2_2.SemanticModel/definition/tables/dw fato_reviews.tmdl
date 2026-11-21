@@ -1,0 +1,93 @@
+table 'dw fato_reviews'
+	lineageTag: fdcbc2c3-b4d3-4fed-8d00-048df0c14e8f
+
+	column review_id
+		dataType: string
+		lineageTag: 175f640a-5df3-4101-9024-54268fe2ce7e
+		summarizeBy: none
+		sourceColumn: review_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_id
+		dataType: string
+		lineageTag: 4297191b-0018-4382-9eca-2f8b2953ecec
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c20b1cf-6a2e-4e48-87d1-b1e7ac8ad56e
+		summarizeBy: sum
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_comment_title
+		dataType: string
+		lineageTag: 543d308d-c4c5-4396-92ea-8ec230bb4e2e
+		summarizeBy: none
+		sourceColumn: review_comment_title
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_comment_message
+		dataType: string
+		lineageTag: 6837340d-2147-48bc-8a3f-0aebfbc74f2e
+		summarizeBy: none
+		sourceColumn: review_comment_message
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_creation_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 691d6b14-069b-4af1-93f7-fb6c50f6bd89
+		summarizeBy: none
+		sourceColumn: review_creation_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_answer_timestamp
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 94b1d43b-ab47-4dc9-aa83-66bb7634b120
+		summarizeBy: none
+		sourceColumn: review_answer_timestamp
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_creation_date_only
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 3d694a01-3da5-4335-8c97-b66eb156f46a
+		summarizeBy: none
+		sourceColumn: review_creation_date_only
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_id
+		dataType: string
+		lineageTag: 87c74b55-1edc-4115-ac10-fa46873ee4d1
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw fato_reviews' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_fato_reviews = Projeto_Ecomm{[Schema="dw",Item="fato_reviews"]}[Data]
+				in
+				    dw_fato_reviews
+
+	annotation PBI_ResultType = Table
+

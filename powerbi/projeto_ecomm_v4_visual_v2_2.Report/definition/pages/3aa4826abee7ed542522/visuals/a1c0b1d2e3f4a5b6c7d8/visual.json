@@ -1,0 +1,82 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "a1c0b1d2e3f4a5b6c7d8",
+  "position": {
+    "x": 1160,
+    "y": 682,
+    "z": 10000,
+    "height": 356,
+    "width": 720,
+    "tabOrder": 10000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Principais conclusões",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "16pt",
+                      "color": "#1F3A5F"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Novembro/2017 é o pico de vendas (cerca de R$ 1,18 mi, +53% sobre outubro), coincidindo com a Black Friday.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• A partir de 2018 as vendas se estabilizam entre R$ 1,0 mi e R$ 1,2 mi por mês.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• As categorias líderes em receita são beleza e saúde, relógios e presentes, e cama, mesa e banho.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Meses fora de jan/2017 a ago/2018 foram excluídos por terem cobertura incompleta na base.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

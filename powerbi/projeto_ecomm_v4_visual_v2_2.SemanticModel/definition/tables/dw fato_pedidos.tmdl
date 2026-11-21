@@ -1,0 +1,154 @@
+table 'dw fato_pedidos'
+	lineageTag: d7faea1a-1a8a-4151-a4d1-e5c0780da3a0
+
+	column order_id
+		dataType: string
+		lineageTag: 4292b74b-13be-4daa-aa8e-2e99228d49fa
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: string
+		lineageTag: e5b5db37-4a31-4953-93eb-1e5fd4965b48
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 4ddd0b67-ea40-4ca3-887f-6d30efcb38d9
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 7132962c-9162-4ecf-9a84-16596a0260f6
+		summarizeBy: none
+		sourceColumn: order_purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_approved_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b3afaf73-4ab5-4a78-a2f9-9cc2fda32b12
+		summarizeBy: none
+		sourceColumn: order_approved_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_delivered_carrier_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c2c6b896-a4b0-43c2-8308-c6b58cb2de61
+		summarizeBy: none
+		sourceColumn: order_delivered_carrier_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_delivered_customer_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2c80dbae-f0de-4314-9d7b-5f0dd0237baf
+		summarizeBy: none
+		sourceColumn: order_delivered_customer_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column order_estimated_delivery_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0821a71b-32af-4ef7-babf-c5871d0f3392
+		summarizeBy: none
+		sourceColumn: order_estimated_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Status Entrega' =
+			
+			VAR _dias =
+			    DATEDIFF (
+			        'dw fato_pedidos'[order_estimated_delivery_date],
+			        'dw fato_pedidos'[order_delivered_customer_date],
+			        DAY
+			    )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        'dw fato_pedidos'[order_status] <> "delivered"
+			            || ISBLANK ( 'dw fato_pedidos'[order_delivered_customer_date] ), "Não entregue",
+			        _dias <= 0, "No prazo",
+			        "Atrasado"
+			    )
+		lineageTag: b2a8e3ee-10d6-45ba-9d4c-3fd374473719
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Faixa de Atraso' =
+			
+			VAR _dias =
+			    DATEDIFF (
+			        'dw fato_pedidos'[order_estimated_delivery_date],
+			        'dw fato_pedidos'[order_delivered_customer_date],
+			        DAY
+			    )
+			RETURN
+			    SWITCH (
+			        TRUE (),
+			        'dw fato_pedidos'[order_status] <> "delivered"
+			            || ISBLANK ( 'dw fato_pedidos'[order_delivered_customer_date] ), "Não entregue",
+			        _dias <= 0, "No prazo",
+			        _dias <= 3, "1-3 dias",
+			        _dias <= 7, "4-7 dias",
+			        "8+ dias"
+			    )
+		lineageTag: db9e8643-2afb-442d-b62c-5c3bbabb1849
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordem Faixa Atraso' =
+			
+			SWITCH (
+			    'dw fato_pedidos'[Faixa de Atraso],
+			    "No prazo", 1,
+			    "1-3 dias", 2,
+			    "4-7 dias", 3,
+			    "8+ dias", 4,
+			    5
+			)
+		formatString: 0
+		lineageTag: cb62c465-92b0-41ad-90fb-d22388f76569
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw fato_pedidos' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_fato_pedidos = Projeto_Ecomm{[Schema="dw",Item="fato_pedidos"]}[Data]
+				in
+				    dw_fato_pedidos
+
+	annotation PBI_ResultType = Table
+

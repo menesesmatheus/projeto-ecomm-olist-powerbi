@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "projeto_ecomm_v4_visual_v2_2"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "66db35d2-e318-4027-a983-71bc41304a72"
+  }
+}

@@ -1,0 +1,97 @@
+table 'dw fato_vendas'
+	lineageTag: 59f60f79-a9cd-4beb-bc00-9b0dbfcf0ed7
+
+	column order_id
+		dataType: string
+		lineageTag: 5768ddfc-c2bf-4b04-b443-0a6d1ccecd96
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b4c2794-7c63-4d50-af39-a97aba949993
+		summarizeBy: sum
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: 456fe341-d88b-4631-8d70-a6916e0d0326
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 503eb7ef-1775-4f1d-88ef-c632bdfd51e1
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: double
+		lineageTag: da28fd04-e7ee-4720-99aa-6c41ced80589
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_value
+		dataType: double
+		lineageTag: e3713460-f4c2-4299-b0db-cbd6fa0eaf1d
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column total_item_value
+		dataType: double
+		lineageTag: c134d51a-cb84-4cd1-806c-29983194ffe6
+		summarizeBy: sum
+		sourceColumn: total_item_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: 0f63d07f-5f72-4b08-9634-f0b0c0153c25
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 6b71e05c-531d-4617-8285-317adaa8b848
+		summarizeBy: none
+		sourceColumn: order_purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'dw fato_vendas' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_fato_vendas = Projeto_Ecomm{[Schema="dw",Item="fato_vendas"]}[Data]
+				in
+				    dw_fato_vendas
+
+	annotation PBI_ResultType = Table
+

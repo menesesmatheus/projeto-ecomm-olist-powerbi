@@ -1,0 +1,13 @@
+# Power BI Project (arquivos locais / pesados)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Dados brutos (Olist: licenca CC BY-NC-SA, baixe do Kaggle)
+*.csv
+*.bak
+*.mdf
+*.ldf
+
+# Sistema
+.DS_Store
+Thumbs.db

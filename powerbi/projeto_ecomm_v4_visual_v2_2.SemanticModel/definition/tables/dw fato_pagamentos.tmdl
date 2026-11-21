@@ -1,0 +1,81 @@
+table 'dw fato_pagamentos'
+	lineageTag: e26b59e1-789b-48e8-82c8-a2c971f3283c
+
+	column order_id
+		dataType: string
+		lineageTag: 731c3617-1d0a-48a6-9a53-83b5050a8f74
+		summarizeBy: none
+		sourceColumn: order_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_sequential
+		dataType: int64
+		formatString: 0
+		lineageTag: b8533807-8d6b-4634-be04-656686db0c44
+		summarizeBy: sum
+		sourceColumn: payment_sequential
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: 448fdb79-3ca6-42e6-a529-67c2277f493f
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		lineageTag: 8bced347-4f58-44b9-bbba-72029c9f95ea
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_value
+		dataType: double
+		lineageTag: 0b9878a8-31e2-4493-8e37-24b32b974165
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_id
+		dataType: string
+		lineageTag: eb82418b-151a-45c8-9f8b-50fede94c3b0
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 5637eda0-1dde-4afe-9ba4-25b21c8a6b83
+		summarizeBy: none
+		sourceColumn: order_purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'dw fato_pagamentos' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_fato_pagamentos = Projeto_Ecomm{[Schema="dw",Item="fato_pagamentos"]}[Data],
+				    #"Valor Substituído" = Table.ReplaceValue(dw_fato_pagamentos,"_"," ",Replacer.ReplaceText,{"payment_type"})
+				in
+				    #"Valor Substituído"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

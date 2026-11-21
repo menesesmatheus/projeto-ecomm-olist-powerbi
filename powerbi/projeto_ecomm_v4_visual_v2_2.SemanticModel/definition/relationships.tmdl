@@ -1,0 +1,60 @@
+relationship 22f44104-56b9-4a6e-8b19-604b497c9c89
+	fromColumn: 'dw fato_pagamentos'.order_purchase_date
+	toColumn: 'dw dim_calendario'.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship 9960972f-11c8-40e7-80b1-af6cf5a33c73
+	fromColumn: 'dw fato_pagamentos'.customer_id
+	toColumn: 'dw dim_customers'.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 6b3e3b11-8e03-4cb3-a2bc-03492663835d
+	fromColumn: 'dw fato_pedidos'.order_purchase_date
+	toColumn: 'dw dim_calendario'.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship b83f0a91-d495-48ca-be0d-a2d8b4d7ee02
+	fromColumn: 'dw fato_pedidos'.customer_id
+	toColumn: 'dw dim_customers'.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship f8123978-4f2c-444a-b15b-166ffb53e604
+	fromColumn: 'dw fato_reviews'.review_creation_date_only
+	toColumn: 'dw dim_calendario'.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship 50c0b833-ae99-4424-acde-b93b00fdb2bd
+	fromColumn: 'dw fato_reviews'.customer_id
+	toColumn: 'dw dim_customers'.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 35ea4dbb-ac6a-4dc5-bba1-e75f0a29e91a
+	fromColumn: 'dw fato_vendas'.order_purchase_date
+	toColumn: 'dw dim_calendario'.data
+
+	annotation PBI_IsFromSource = FS
+
+relationship 42599ac3-6eff-48db-b4af-3ec59457a925
+	fromColumn: 'dw fato_vendas'.customer_id
+	toColumn: 'dw dim_customers'.customer_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 1a3365bf-9e85-4c22-9e74-714c1cabfac7
+	fromColumn: 'dw fato_vendas'.product_id
+	toColumn: 'dw dim_products'.product_id
+
+	annotation PBI_IsFromSource = FS
+
+relationship 2b8dc91a-1d51-4ab1-9ed7-203229b6f569
+	fromColumn: 'dw fato_vendas'.seller_id
+	toColumn: 'dw dim_sellers'.seller_id
+
+	annotation PBI_IsFromSource = FS
+

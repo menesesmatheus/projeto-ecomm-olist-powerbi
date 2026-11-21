@@ -1,0 +1,138 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 466.59585930171443,
+            "y": 0
+          },
+          "nodeIndex": "dw dim_calendario",
+          "nodeLineageTag": "c69da84f-19bc-4a96-bf3e-f8eedca8ef36",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 8
+        },
+        {
+          "location": {
+            "x": 761.308058026567,
+            "y": 5.0280829723497682
+          },
+          "nodeIndex": "dw dim_customers",
+          "nodeLineageTag": "aace8a10-a372-477b-a49b-b0bfb0c21ef3",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 56.536806307521033,
+            "y": 0
+          },
+          "nodeIndex": "dw dim_products",
+          "nodeLineageTag": "8af3c523-f93a-4dcd-9aac-e44c5c08f453",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 7
+        },
+        {
+          "location": {
+            "x": 1157.8125940774114,
+            "y": 18.855311146311621
+          },
+          "nodeIndex": "dw dim_sellers",
+          "nodeLineageTag": "a80b2a6d-f415-4c3d-8404-e6939d0ee754",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 98.04761796082046,
+            "y": 529.17005995795841
+          },
+          "nodeIndex": "dw fato_pagamentos",
+          "nodeLineageTag": "e26b59e1-789b-48e8-82c8-a2c971f3283c",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 746.923589958108,
+            "y": 516.70009415983566
+          },
+          "nodeIndex": "dw fato_pedidos",
+          "nodeLineageTag": "d7faea1a-1a8a-4151-a4d1-e5c0780da3a0",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 4
+        },
+        {
+          "location": {
+            "x": 391.62661543113808,
+            "y": 507.83638020732633
+          },
+          "nodeIndex": "dw fato_reviews",
+          "nodeLineageTag": "fdcbc2c3-b4d3-4fed-8d00-048df0c14e8f",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 1074.6902357653223,
+            "y": 505.33784600597755
+          },
+          "nodeIndex": "dw fato_vendas",
+          "nodeLineageTag": "59f60f79-a9cd-4beb-bc00-9b0dbfcf0ed7",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 6
+        },
+        {
+          "location": {
+            "x": 1385.2757877698905,
+            "y": 0
+          },
+          "nodeIndex": "_Medidas",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 79.553182037699855,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

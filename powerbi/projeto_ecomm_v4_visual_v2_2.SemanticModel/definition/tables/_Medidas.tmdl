@@ -1,0 +1,197 @@
+table _Medidas
+	lineageTag: b23eabed-63ba-417a-8559-02db7b89c85d
+
+	measure 'Vendas Mes Anterior' = ```
+			
+			CALCULATE ( [Total com frete], DATEADD ( 'dw dim_calendario'[data], -1, MONTH
+			) )
+			
+			```
+		lineageTag: a439a8f2-c06b-4f94-9636-d6ccd7754c12
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Variacao % Vendas (MoM)' = ```
+			
+			VAR _atual = [Total com frete]
+			VAR _ant = [Vendas Mes Anterior]
+			RETURN
+			IF ( NOT ISBLANK ( _ant ), DIVIDE ( _atual - _ant, _ant ) )
+			
+			```
+		lineageTag: 5606d6db-1d7e-4373-9162-0ebcea78b29d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vendas Ano Anterior' = ```
+			
+			CALCULATE ( [Total com frete], SAMEPERIODLASTYEAR ( 'dw dim_calendario'[data]
+			) )
+			
+			```
+		lineageTag: 7a022edd-4dba-4767-8595-a8531f3f70b1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Variacao % Ultimo Mes' =
+			
+			VAR _fim = MAX ( 'dw dim_calendario'[data] )
+			VAR _ini = DATE ( YEAR ( _fim ), MONTH ( _fim ), 1 )
+			VAR _atual =
+			CALCULATE ( [Total com frete], DATESBETWEEN ( 'dw dim_calendario'[data],
+			_ini, _fim ) )
+			VAR _ant =
+			CALCULATE (
+			[Total com frete],
+			DATESBETWEEN ( 'dw dim_calendario'[data], EDATE ( _ini, -1 ), EOMONTH
+			( _fim, -1 ) )
+			)
+			RETURN
+			DIVIDE ( _atual - _ant, _ant )
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: a52fb64c-6fb6-44cd-a1da-93433711b425
+
+	measure 'Pedidos Entregues' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'dw fato_pedidos'[order_id] ),
+			    'dw fato_pedidos'[order_status] = "delivered",
+			    NOT ISBLANK ( 'dw fato_pedidos'[order_delivered_customer_date] )
+			)
+		formatString: 0
+		lineageTag: 534829bb-acec-480a-829f-fedcf17f8d2a
+
+	measure 'Pedidos Atrasados' =
+			
+			CALCULATE (
+			    DISTINCTCOUNT ( 'dw fato_pedidos'[order_id] ),
+			    'dw fato_pedidos'[Status Entrega] = "Atrasado"
+			)
+		formatString: 0
+		lineageTag: 06896ff8-112e-4ad0-919a-76d15fa7711b
+
+	measure 'Pedidos Atrasados %' =
+			
+			DIVIDE ( [Pedidos Atrasados], [Pedidos Entregues] )
+		lineageTag: dabecf20-3a21-4d4b-99a4-b94bbd12c693
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prazo Real Medio (dias)' =
+			
+			AVERAGEX (
+			    FILTER (
+			        'dw fato_pedidos',
+			        'dw fato_pedidos'[order_status] = "delivered"
+			            && NOT ISBLANK ( 'dw fato_pedidos'[order_delivered_customer_date] )
+			    ),
+			    DATEDIFF (
+			        'dw fato_pedidos'[order_purchase_date],
+			        'dw fato_pedidos'[order_delivered_customer_date],
+			        DAY
+			    )
+			)
+		lineageTag: c02c7c58-4929-41b5-9af5-55a1ecfd8040
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Prazo Estimado Medio (dias)' =
+			
+			AVERAGEX (
+			    FILTER (
+			        'dw fato_pedidos',
+			        'dw fato_pedidos'[order_status] = "delivered"
+			            && NOT ISBLANK ( 'dw fato_pedidos'[order_delivered_customer_date] )
+			    ),
+			    DATEDIFF (
+			        'dw fato_pedidos'[order_purchase_date],
+			        'dw fato_pedidos'[order_estimated_delivery_date],
+			        DAY
+			    )
+			)
+		lineageTag: d3439a9c-3f29-4bd2-bae2-c707e20ce9a0
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Nota Media (via pedidos)' =
+			
+			CALCULATE (
+			    [Media Avaliações],
+			    TREATAS ( VALUES ( 'dw fato_pedidos'[order_id] ), 'dw fato_reviews'[order_id] )
+			)
+		lineageTag: 8ca8187a-e65b-4395-9a37-2591ef8632e9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total Pedidos' = DISTINCTCOUNT('dw fato_pedidos'[order_id])
+		formatString: 0
+		lineageTag: 5399dace-fa7a-4ce7-843c-de0a23048b97
+
+	measure 'Total de clientes' = DISTINCTCOUNT('dw dim_customers'[customer_unique_id])
+		formatString: 0
+		lineageTag: 72457b5f-c2b7-44b6-b1da-283390779be3
+
+	measure 'Quantidade de pagamentos' = COUNTROWS('dw fato_pagamentos')
+		formatString: 0
+		lineageTag: 6d4f5ee4-841c-4cb4-b132-df82c00fd5f8
+
+	measure 'Total Pagamentos' = SUM('dw fato_pagamentos'[payment_value])
+		lineageTag: 653f14ab-a978-4c32-853b-343f25bcd41c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Media Avaliações' = AVERAGE('dw fato_reviews'[review_score])
+		lineageTag: c6e2c53a-4f8e-4c38-95ca-f4495a9ce6b9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total de avaliações' = COUNT('dw fato_reviews'[review_id])
+		formatString: 0
+		lineageTag: a2a31c17-1c0f-4bf1-8ad9-61769adbaa81
+
+	measure 'Pedidos com itens' = DISTINCTCOUNT('dw fato_vendas'[order_id])
+		formatString: 0
+		lineageTag: 521949ee-8ac3-4881-a650-edb0f2d29613
+
+	measure 'Ticket medio' = DIVIDE([Total com frete],[Pedidos com itens])
+		lineageTag: d3cafec7-57e2-4373-856f-cbaa5157bbd1
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total com frete' = [Valor do frete] + [Valor dos produtos]
+		lineageTag: 19d65a25-4e3e-4280-b868-7e5bb92fa589
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Total itens' = COUNTROWS('dw fato_vendas')
+		formatString: 0
+		lineageTag: eeb58114-6e4c-44b6-8410-2a564d84fec5
+
+	measure 'Valor do frete' = SUM('dw fato_vendas'[freight_value])
+		lineageTag: 44700765-e525-4bd8-a67a-5311140419af
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Valor dos produtos' = SUM('dw fato_vendas'[price])
+		lineageTag: 8ac84bdf-ece0-4db3-929f-f22b90a81b59
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column
+		isHidden
+		formatString: 0
+		lineageTag: 0e287ab6-f6cf-429c-9e71-b277101f03bc
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Medidas = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation PBI_Id = cb7871d233824e278c9595f8cfc4d0c6
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

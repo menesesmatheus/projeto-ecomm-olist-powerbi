@@ -1,0 +1,118 @@
+table 'dw dim_calendario'
+	lineageTag: c69da84f-19bc-4a96-bf3e-f8eedca8ef36
+	dataCategory: Time
+
+	column data
+		dataType: dateTime
+		isKey
+		formatString: Long Date
+		lineageTag: 20280c7a-7867-4757-87b2-fcf3c97c1d02
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column ano
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ecfcc61-7e63-403d-92df-664dfc2d097d
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column trimestre
+		dataType: int64
+		formatString: 0
+		lineageTag: e4534adb-2043-433d-8d35-573ff367ffb0
+		summarizeBy: sum
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: 2c32f3ae-2e5d-4848-ba36-b196542e86ce
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_mes
+		dataType: string
+		lineageTag: a8404faf-da62-40ec-a1d2-7482e4e41e42
+		summarizeBy: none
+		sourceColumn: nome_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano_mes
+		dataType: string
+		lineageTag: 62a27747-987d-40d1-b25d-c5404699136a
+		summarizeBy: none
+		sourceColumn: ano_mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia
+		dataType: int64
+		formatString: 0
+		lineageTag: ee5c2731-ae3d-40d8-8bc3-a6282c6838e0
+		summarizeBy: sum
+		sourceColumn: dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: int64
+		formatString: 0
+		lineageTag: 7ee6bcfc-c4cc-4a08-afb3-5c1b9891febb
+		summarizeBy: sum
+		sourceColumn: dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome_dia_semana
+		dataType: string
+		lineageTag: b0837c29-40fb-49a7-a3fe-82ecbb599e26
+		summarizeBy: none
+		sourceColumn: nome_dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column fim_de_semana
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 5afc6ef2-389b-4733-8984-3ba5a7445f05
+		summarizeBy: none
+		sourceColumn: fim_de_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Ordem Ano Mes' =
+			
+			YEAR('dw dim_calendario'[data]) * 100
+			    + MONTH('dw dim_calendario'[data])
+		formatString: 0
+		lineageTag: 470829ad-6613-4ff1-a5f8-1f8296b61bde
+		summarizeBy: sum
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw dim_calendario' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_dim_calendario = Projeto_Ecomm{[Schema="dw",Item="dim_calendario"]}[Data]
+				in
+				    dw_dim_calendario
+
+	annotation PBI_ResultType = Table
+

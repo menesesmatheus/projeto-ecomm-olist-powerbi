@@ -1,0 +1,105 @@
+table 'dw dim_products'
+	lineageTag: 8af3c523-f93a-4dcd-9aac-e44c5c08f453
+
+	column product_id
+		dataType: string
+		lineageTag: f192ed8e-9071-43db-8b86-acf36cc83b61
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name
+		dataType: string
+		lineageTag: babc554b-1777-46b4-8826-c4f6adea8c8c
+		summarizeBy: none
+		sourceColumn: product_category_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_category_name_english
+		dataType: string
+		lineageTag: 623c1c99-4b36-4149-b857-6f0ecc706cc2
+		summarizeBy: none
+		sourceColumn: product_category_name_english
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name_length
+		dataType: int64
+		formatString: 0
+		lineageTag: cac25c64-b2d4-4090-9982-322e0ce2fad7
+		summarizeBy: none
+		sourceColumn: product_name_length
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_description_length
+		dataType: int64
+		formatString: 0
+		lineageTag: 5be0ca38-0e8b-4ba7-9bcd-86ce550639e5
+		summarizeBy: none
+		sourceColumn: product_description_length
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_photos_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: 5aa3bf6f-2ff3-42ba-87e4-5e65835bf200
+		summarizeBy: none
+		sourceColumn: product_photos_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_weight_g
+		dataType: int64
+		formatString: 0
+		lineageTag: dc7d984d-025f-450c-a6e2-8f1458ca011a
+		summarizeBy: none
+		sourceColumn: product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_length_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 507a61a1-5a9b-48f8-8f07-63cc060f6536
+		summarizeBy: none
+		sourceColumn: product_length_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_height_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: f8f8db67-686f-43c1-a7a1-6b4202d245e9
+		summarizeBy: none
+		sourceColumn: product_height_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_width_cm
+		dataType: int64
+		formatString: 0
+		lineageTag: 8798f12a-6ed0-403f-9f23-1f6918be6d62
+		summarizeBy: none
+		sourceColumn: product_width_cm
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw dim_products' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_dim_products = Projeto_Ecomm{[Schema="dw",Item="dim_products"]}[Data],
+				    #"Valor Substituído" = Table.ReplaceValue(dw_dim_products,"_"," ",Replacer.ReplaceText,{"product_category_name"})
+				in
+				    #"Valor Substituído"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navegação
+

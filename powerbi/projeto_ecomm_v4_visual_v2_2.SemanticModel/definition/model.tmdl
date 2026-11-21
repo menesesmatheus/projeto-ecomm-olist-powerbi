@@ -1,0 +1,29 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["dw dim_calendario","dw dim_customers","dw dim_products","dw dim_sellers","dw fato_pagamentos","dw fato_pedidos","dw fato_reviews","dw fato_vendas"]
+
+annotation PBI_RemovedChildren = [{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"d7faea1a-1a8a-4151-a4d1-e5c0780da3a0","fromColumnLocalLineageTag":"0821a71b-32af-4ef7-babf-c5871d0f3392","toTableLocalLineageTag":"c69da84f-19bc-4a96-bf3e-f8eedca8ef36","toColumnLocalLineageTag":"20280c7a-7867-4757-87b2-fcf3c97c1d02"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"d7faea1a-1a8a-4151-a4d1-e5c0780da3a0","fromColumnLocalLineageTag":"2c80dbae-f0de-4314-9d7b-5f0dd0237baf","toTableLocalLineageTag":"c69da84f-19bc-4a96-bf3e-f8eedca8ef36","toColumnLocalLineageTag":"20280c7a-7867-4757-87b2-fcf3c97c1d02"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"d7faea1a-1a8a-4151-a4d1-e5c0780da3a0","fromColumnLocalLineageTag":"c2c6b896-a4b0-43c2-8308-c6b58cb2de61","toTableLocalLineageTag":"c69da84f-19bc-4a96-bf3e-f8eedca8ef36","toColumnLocalLineageTag":"20280c7a-7867-4757-87b2-fcf3c97c1d02"}},"objectType":"Relationship"},{"remoteItemId":{"foreignKeyRelationship":{"fromTableLocalLineageTag":"d7faea1a-1a8a-4151-a4d1-e5c0780da3a0","fromColumnLocalLineageTag":"b3afaf73-4ab5-4a78-a2f9-9cc2fda32b12","toTableLocalLineageTag":"c69da84f-19bc-4a96-bf3e-f8eedca8ef36","toColumnLocalLineageTag":"20280c7a-7867-4757-87b2-fcf3c97c1d02"}},"objectType":"Relationship"}]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'dw dim_calendario'
+ref table 'dw dim_customers'
+ref table 'dw dim_products'
+ref table 'dw dim_sellers'
+ref table 'dw fato_pagamentos'
+ref table 'dw fato_pedidos'
+ref table 'dw fato_reviews'
+ref table 'dw fato_vendas'
+ref table _Medidas
+
+ref cultureInfo pt-BR
+

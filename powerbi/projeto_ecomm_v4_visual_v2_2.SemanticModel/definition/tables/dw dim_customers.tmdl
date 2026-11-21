@@ -1,0 +1,55 @@
+table 'dw dim_customers'
+	lineageTag: aace8a10-a372-477b-a49b-b0bfb0c21ef3
+
+	column customer_id
+		dataType: string
+		lineageTag: fd329170-a584-476a-b4ca-05ecee06b1fa
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 01cbcb2f-2042-45b6-b529-bd1b2ecdddfe
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_zip_code_prefix
+		dataType: string
+		lineageTag: 451b18c1-dc60-4813-9272-6c66232724a5
+		summarizeBy: none
+		sourceColumn: customer_zip_code_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: f9c49f46-aa25-40f8-b649-8e9d6ac0d530
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: 9228dc81-869d-40a2-a234-b371cae4b5df
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'dw dim_customers' = m
+		mode: import
+		source =
+				let
+				    Fonte = Sql.Databases("DESKTOP-ATR9NL6\SQLEXPRESS01"),
+				    Projeto_Ecomm = Fonte{[Name="Projeto_Ecomm"]}[Data],
+				    dw_dim_customers = Projeto_Ecomm{[Schema="dw",Item="dim_customers"]}[Data]
+				in
+				    dw_dim_customers
+
+	annotation PBI_ResultType = Table
+

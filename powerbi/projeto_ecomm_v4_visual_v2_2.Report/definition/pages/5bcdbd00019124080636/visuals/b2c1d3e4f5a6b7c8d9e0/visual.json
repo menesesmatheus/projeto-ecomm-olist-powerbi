@@ -1,0 +1,71 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "b2c1d3e4f5a6b7c8d9e0",
+  "position": {
+    "x": 505,
+    "y": 192,
+    "z": 6000,
+    "height": 130,
+    "width": 1375,
+    "tabOrder": 6000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Principais conclusões",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "16pt",
+                      "color": "#1F3A5F"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• SP concentra cerca de 42% dos clientes e a maior parte da receita; RJ e MG vêm em seguida.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Os 10% maiores vendedores respondem por cerca de dois terços da receita: a receita é muito concentrada.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "• Os maiores tickets médios aparecem em estados com poucos pedidos; por isso o gráfico considera só estados com 500+ pedidos.",
+                    "textStyle": {
+                      "fontSize": "12pt",
+                      "color": "#1F2A37"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

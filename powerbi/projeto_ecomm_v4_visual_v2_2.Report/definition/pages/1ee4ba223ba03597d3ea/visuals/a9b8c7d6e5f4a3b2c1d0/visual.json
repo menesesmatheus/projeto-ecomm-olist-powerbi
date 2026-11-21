@@ -1,0 +1,57 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "a9b8c7d6e5f4a3b2c1d0",
+  "position": {
+    "x": 960,
+    "y": 902,
+    "z": 11000,
+    "height": 136,
+    "width": 300,
+    "tabOrder": 11000
+  },
+  "visual": {
+    "visualType": "cardVisual",
+    "query": {
+      "queryState": {
+        "Data": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Medidas"
+                    }
+                  },
+                  "Property": "Prazo Estimado Medio (dias)"
+                }
+              },
+              "queryRef": "_Medidas.Prazo Estimado Medio (dias)",
+              "nativeQueryRef": "Prazo Estimado Medio (dias)",
+              "format": "0.0"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "value": [
+        {
+          "properties": {
+            "horizontalAlignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "_Medidas.Prazo Estimado Medio (dias)"
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}
